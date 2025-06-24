@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+        
+
+// Modelo para los dueños de las tiendas (usuarios)z
+model User {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  name      String?
+  role      UserRole  @default(USER)
+  stores    Store[]   // Un usuario puede tener varias tiendas
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+// Modelo para las tiendas que se suscriben a tu SaaS
+model Store {
+  id        String    @id @default(cuid())
+  name      String
+  domain    String    @unique // El dominio personalizado ej: latiendita.com
+  isActive  Boolean   @default(true)
+
+  owner     User      @relation(fields: [ownerId], references: [id])
+  ownerId   String
+
+  products  Product[] // Una tienda puede tener muchos productos
+  createdAt DateTime  @default(now())
+}
+
+// Modelo para los productos de cada tienda
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  price       Float
+
+  store       Store    @relation(fields: [storeId], references: [id])
+  storeId     String
+
+  createdAt   DateTime @default(now())
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
