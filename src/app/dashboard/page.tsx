@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma' // Asegúrate de usar la instancia central
 import { CreateStoreForm } from '@/components/CreateStoreForm'
 import { type Session } from "next-auth" // <-- 1. Importa el tipo Session
+import { ProductDashboard } from '@/components/ProductDashboard'
 
 // 2. Define el mismo tipo personalizado
 type CustomSession = Session & {
@@ -21,24 +22,24 @@ export default async function DashboardPage() {
     redirect('/login')
   }
 
-  const store = await prisma.store.findFirst({
+ const store = await prisma.store.findFirst({
     where: {
       ownerId: session.user.id,
     },
-  })
+  });
 
   if (!store) {
     return (
       <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
         <CreateStoreForm />
       </div>
-    )
+    );
   }
 
+  // Si ya tiene una tienda, muestra el dashboard de productos
   return (
-    <div className="container mx-auto mt-10">
-      <h1 className="text-3xl font-bold">Dashboard de: {store.name}</h1>
-      <p className="mt-4">Aquí gestionarás tus productos, pedidos, etc.</p>
+    <div className="container mx-auto py-10">
+      <ProductDashboard storeId={store.id} />
     </div>
-  )
+  );
 }
