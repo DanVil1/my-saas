@@ -4,7 +4,7 @@ import { type AuthOptions } from "next-auth"
 import { type Adapter } from "next-auth/adapters"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import CredentialsProvider from "next-auth/providers/credentials"
-import bcrypt from "bcrypt"
+import bcrypt from "bcryptjs"
 import { prisma } from "@/lib/prisma" // Usamos nuestra instancia central de Prisma
 
 // NOTA: Ya no usamos 'export' aquí porque esta variable solo se usa en este archivo por ahora
