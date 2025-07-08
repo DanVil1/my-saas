@@ -24,7 +24,7 @@ export async function ProductDashboard({ storeId }: ProductDashboardProps) {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-6 mt-12">
         <h2 className="text-2xl font-semibold">Tus Productos</h2>
         <ProductForm />
       </div>
