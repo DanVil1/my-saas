@@ -1,4 +1,5 @@
 // src/app/product/[productId]/page.tsx
+import { AddToCartButton } from '@/components/AddToCartButton';
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 
@@ -37,6 +38,8 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             {product.description}
           </p>
           {/* Futuro: Botón de "Añadir al Carrito" */}
+          {/* 2. Add the button to the page */}
+          <AddToCartButton product={product} />
         </div>
       </div>
     </div>
