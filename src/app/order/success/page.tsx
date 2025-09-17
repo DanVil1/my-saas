@@ -6,6 +6,9 @@ import { CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
+// Add this line to opt out of static rendering
+export const dynamic = 'force-dynamic'
+
 export default function OrderSuccessPage() {
     const searchParams = useSearchParams();
     const storeName = searchParams.get('store') || 'admin';
