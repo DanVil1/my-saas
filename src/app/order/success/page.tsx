@@ -1,19 +1,24 @@
-// src/app/order/success/page.tsx
 'use client'
-
-// THIS IS THE ONLY LINE YOU NEED TO ADD TO YOUR ORIGINAL CODE
-export const dynamic = 'force-dynamic';
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function OrderSuccessPage() {
+function SuccessContent() {
     const searchParams = useSearchParams();
     const storeName = searchParams.get('store') || 'admin';
     
+    return (
+        <Link href={`/store?name=${storeName}`}>
+            <Button className="w-full">Volver a la tienda</Button>
+        </Link>
+    );
+}
+
+export default function OrderSuccessPage() {
     return (
         <div className="container mx-auto py-20 text-center">
             <Card className="max-w-md mx-auto">
@@ -30,9 +35,9 @@ export default function OrderSuccessPage() {
                     <p className="text-sm text-muted-foreground">
                         Una vez apruebes el pago, recibirás una confirmación por email.
                     </p>
-                    <Link href={`/store?name=${storeName}`}>
-                        <Button className="w-full">Volver a la tienda</Button>
-                    </Link>
+                    <Suspense fallback={<Button className="w-full" disabled>Cargando...</Button>}>
+                        <SuccessContent />
+                    </Suspense>
                 </CardContent>
             </Card>
         </div>
