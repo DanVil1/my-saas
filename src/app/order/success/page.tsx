@@ -1,13 +1,14 @@
+// src/app/order/success/page.tsx
 'use client'
+
+// THIS IS THE ONLY LINE YOU NEED TO ADD TO YOUR ORIGINAL CODE
+export const dynamic = 'force-dynamic';
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-
-// Add this line to opt out of static rendering
-export const dynamic = 'force-dynamic'
 
 export default function OrderSuccessPage() {
     const searchParams = useSearchParams();
