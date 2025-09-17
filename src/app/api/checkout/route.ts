@@ -64,7 +64,7 @@ export async function POST(request: Request) {
                 public_key: process.env.NEXT_PUBLIC_WOMPI_PUBLIC_KEY,
                 reference: reference,
                 signature: signature,
-                redirect_url: `${process.env.NEXTAUTH_URL}/order/success?store=${storeName}`,
+                redirect_url: `https://${request.headers.get('host')}/order/success?store=${storeName}`,
                 session_id: sessionId,
             }),
         });
